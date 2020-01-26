@@ -100,7 +100,7 @@ public class LectorArchivo {
             contenidoArchivoInt.add(auxInt1);
             contador++;
         }
-        System.out.println("\nSale del for");
+        System.out.println("\nSale del for");//Problema hasta aqui
 
         //Tamanio de Paquetes
         aux = contenidoArchivo.get(contador);
