@@ -13,10 +13,15 @@ public class LectorArchivo {
     // Metodos
     //
     // Constructor 1
-    public LectorArchivo() {
+    public LectorArchivo() { };
 
-    };
-
+    /*
+     * LeerArchivo Guarda en forma de String todas las lineas
+     * leidas del archivo en el atributo contenidoArchivo
+     * recibe:
+     * * String fileName
+     * 
+     */
     public boolean leerArchivo(String fileName){
         File archivo = new File (fileName);
         FileReader fr = null;
@@ -46,8 +51,16 @@ public class LectorArchivo {
         return true;
     }
 
-    //Procesa el archivo a una lista de enteros
+    /*
+     * procesaArchivo procesa el atributo contenidoArchivo quitanto comas y
+     * convietiendo los campos a floats
+     * Retorna:
+     * ArrayList<Float[]>
+     */
     public ArrayList<Float[]> procesaArchivo(){
+        if (contenidoArchivo.isEmpty()) {//Si no tiene campos
+            return null;
+        }
         System.out.println("<------------------------>\n\nEntra a procesar Archivo");
         int contador = 0;
         String aux = contenidoArchivo.get(contador);
