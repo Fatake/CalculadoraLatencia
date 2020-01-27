@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 /**
  * Class Nodo
  */
@@ -38,7 +37,7 @@ public class Nodo {
 	 * Numero del Nodo
 	 * @param newVar the new value of numeroNodo
 	 */
-  	private void setNumeroNodo (Integer newVar) {
+  	public void setNumeroNodo (Integer newVar) {
   		numeroNodo = newVar;
   	}
 
@@ -47,7 +46,7 @@ public class Nodo {
 	 * Numero del Nodo
 	 * @return the value of numeroNodo
 	 */
-  	private Integer getNumeroNodo () {
+  	public Integer getNumeroNodo () {
   		return numeroNodo;
   	}
 
@@ -56,7 +55,7 @@ public class Nodo {
 	 * Tiempo de cola de los paquetes
 	 * @param newVar the new value of tiempoCola
 	 */
-  	private void setTiempoCola (Float newVar) {
+  	public void setTiempoCola (Float newVar) {
   		tiempoCola = newVar;
   	}
 
@@ -65,7 +64,7 @@ public class Nodo {
 	 * Tiempo de cola de los paquetes
 	 * @return the value of tiempoCola
 	 */
-  	private Float getTiempoCola () {
+  	public Float getTiempoCola () {
   		return tiempoCola;
   	}
 
