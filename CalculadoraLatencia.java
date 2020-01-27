@@ -9,6 +9,7 @@ public class CalculadoraLatencia {
     // Atributos
     //
     public ArrayList<Float []> contenidoArchivo;
+    private ArrayList<Enlace> nodosEnlazados; 
     //
     // Metodos
     //

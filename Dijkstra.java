@@ -1,16 +1,77 @@
 import java.util.*;
- 
+
+/*
+ * Clase Dijkstra
+ */
 public class Dijkstra {
-    char[]  nodos;  // Letras de identificación de nodo
-    int[][] dijkstra;  // Matriz de distancias entre nodos
-    String  rutaMasCorta;                           // distancia más corta
-    int     longitudMasCorta = Integer.MAX_VALUE;   // ruta más corta
-    List<Nodo>  listos = null;                        // nodos revisados dijkstra
- 
-    // construye el dijkstra con la serie de identificadores de nodo en una cadena
-    Dijkstra(String serieNodos) {
+    private char[]  nodos;  // Letras de identificación de nodo
+    private int[][] dijkstra;  // Matriz de distancias entre nodos
+    private String  rutaMasCorta;                           // distancia más corta
+    private int     longitudMasCorta = Integer.MAX_VALUE;   // ruta más corta
+    private List<NodoDijkstra>  listos = null;                        // NodoDijkstras revisados dijkstra
+
+    //
+    // Consctructor
+    //
+    /*
+     * construye el dijkstra con la serie de 
+     * identificadores de nodo en una cadena
+     */
+    public Dijkstra(String serieNodos) {
         nodos = serieNodos.toCharArray();
         dijkstra = new int[nodos.length][nodos.length];
+    }
+
+    //
+    // Metodos
+    //
+
+    /*
+     * Funcion que recibe el numero de nodos
+     * y los enlaces, y retorna una lista con los caminos mas cortos de
+     * un punto a a un punto b
+     */
+    public List<String> iniciaDijkstra(int numeroNodos, ArrayList<Enlace> nodosEnlazados) {   
+        if (nodosEnlazados.isEmpty()) {//Si no recibo enlaces
+            return null;
+        }
+
+        System.out.println("    ~~~ DIJKSTRA ~~~");   
+        List<String> resp;
+        Scanner sc = new Scanner(System.in);
+        String vertices = "";
+        int nV = numeroNodos; //Numero de Vertices
+        int nA = nodosEnlazados.size();//Nunero Aristas
+        Dijkstra g = null;
+        
+        
+        for (int i = 0; i < nV; i++){            
+            vertices = vertices + (i+1);
+        }
+        
+        g = new Dijkstra(vertices);
+        
+        
+        for (int a = 0; a < nA; a++){
+            // Nodo inicial
+            char inicio = Integer.toString(nodosEnlazados.get(a).getNodoOrigen().getNumeroNodo());
+            
+            //  Nodo final
+            char fin = Integer.toString(nodosEnlazados.get(a).getNodoDestino().getNumeroNodo());
+            
+            // Peso
+            int peso = 1;
+            g.agregarRuta(inicio, fin, peso);
+        }
+        
+        char[] dd = vertices.toCharArray();
+        
+        for (int k=0; k< nV -1; k++) {
+            String respuesta = g.encontrarRutaMinimadijkstra(dd[k], dd[k+1]);
+            System.out.println(respuesta);
+            resp.add(respuesta);
+        }
+        return resp;        
     }
  
     // asigna el tamaño de la arista entre dos nodos
@@ -34,7 +95,7 @@ public class Dijkstra {
         // calcula la ruta más corta del inicio a los demás
         encontrarRutaMinimadijkstra(inicio);
         // recupera el nodo final de la lista de terminados
-        Nodo tmp = new Nodo(fin);
+        NodoDijkstra tmp = new NodoDijkstra(fin);
         if(!listos.contains(tmp)) {
             System.out.println("Error, nodo no alcanzable");
             return "Bye";
@@ -42,7 +103,7 @@ public class Dijkstra {
         tmp = listos.get(listos.indexOf(tmp));
         int distancia = tmp.distancia;  
         // crea una pila para almacenar la ruta desde el nodo final al origen
-        Stack<Nodo> pila = new Stack<Nodo>();
+        Stack<NodoDijkstra> pila = new Stack<NodoDijkstra>();
         while(tmp != null) {
             pila.add(tmp);
             tmp = tmp.procedencia;
@@ -55,19 +116,19 @@ public class Dijkstra {
  
     // encuentra la ruta más corta desde el nodo inicial a todos los demás
     public void encontrarRutaMinimadijkstra(char inicio) {
-        Queue<Nodo>   cola = new PriorityQueue<Nodo>(); // cola de prioridad
-        Nodo            ni = new Nodo(inicio);          // nodo inicial
+        Queue<NodoDijkstra>   cola = new PriorityQueue<NodoDijkstra>(); // cola de prioridad
+        NodoDijkstra            ni = new NodoDijkstra(inicio);          // nodo inicial
          
-        listos = new LinkedList<Nodo>();// lista de nodos ya revisados
+        listos = new LinkedList<NodoDijkstra>();// lista de nodos ya revisados
         cola.add(ni);                   // Agregar nodo inicial a la cola de prioridad
         while(!cola.isEmpty()) {        // mientras que la cola no esta vacia
-            Nodo tmp = cola.poll();     // saca el primer elemento
+            NodoDijkstra tmp = cola.poll();     // saca el primer elemento
             listos.add(tmp);            // lo manda a la lista de terminados
             int p = posicionNodo(tmp.id);   
             for(int j=0; j<dijkstra[p].length; j++) {  // revisa los nodos hijos del nodo tmp
                 if(dijkstra[p][j]==0) continue;        // si no hay conexión no lo evalua
                 if(estaTerminado(j)) continue;      // si ya fue agregado a la lista de terminados
-                Nodo nod = new Nodo(nodos[j],tmp.distancia+dijkstra[p][j],tmp);
+                NodoDijkstra nod = new NodoDijkstra(nodos[j],tmp.distancia+dijkstra[p][j],tmp);
                 // si no está en la cola de prioridad, lo agrega
                 if(!cola.contains(nod)) {
                     cola.add(nod);
@@ -88,7 +149,7 @@ public class Dijkstra {
  
     // verifica si un nodo ya está en lista de terminados
     public boolean estaTerminado(int j) {
-        Nodo tmp = new Nodo(nodos[j]);
+        NodoDijkstra tmp = new NodoDijkstra(nodos[j]);
         return listos.contains(tmp);
     }
  
@@ -106,7 +167,7 @@ public class Dijkstra {
     // almacenando en una cola cada nodo visitado
     private void recorrerRutas(int nodoI, int nodoF, Stack<Integer> resultado) {
         // si el nodo inicial es igual al final se evalúa la ruta en revisión
-        if(nodoI==nodoF) {
+        if(nodoI == nodoF) {
             int respuesta = evaluar(resultado);
             if(respuesta < longitudMasCorta) {
                 longitudMasCorta = respuesta;
@@ -137,42 +198,5 @@ public class Dijkstra {
         for(int x: resultado) r[i++]=x;
         for(i=1; i<r.length; i++) resp+=dijkstra[r[i]][r[i-1]];
         return resp;
-    }
- 
-    public static void main(String[] args) {        
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.println("    ~~~ DIJKSTRA ~~~");
-        System.out.print(" Número de vertices: ");                
-        int nV = sc.nextInt();
-        
-        String vertices = "";
-        
-        for (int i = 0; i < nV; i++){            
-            vertices = vertices + (i+1);
-        }
-               
-        Dijkstra g = new Dijkstra(vertices);
-        
-        System.out.print(" Número de aristas: ");
-        int nA = sc.nextInt();
-        
-        for (int a = 0; a<nA; a++){
-            System.out.println(" ~~~~~~~~~~~~~~ ");
-            System.out.print(" Nodo inicial: ");
-            char inicio = sc.next().charAt(0);
-            System.out.print(" Nodo final: ");
-            char fin = sc.next().charAt(0);
-            System.out.print(" Peso: ");
-            int peso = sc.nextInt();
-            g.agregarRuta(inicio, fin, peso);
-        }
-        
-        char[] dd = vertices.toCharArray();
-        
-        for (int k=0; k<nV-1; k++) {
-            String respuesta = g.encontrarRutaMinimadijkstra(dd[k], dd[k+1]);
-            System.out.println(respuesta);
-        }                
     }
 }
