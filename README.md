@@ -3,7 +3,7 @@ Programa que calcula la latencia final de un punto A a un punto B.
 
 ## Modo de uso
 
-`$> Java CalculadoraLatencia.py --file archivo.cfg`
+`$> Java CalculadoraLatencia.java archivo.cfg`
 
 
 ------------
