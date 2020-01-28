@@ -12,20 +12,20 @@ import java.io.*;
 class FloydWarshall { 
     private final static Integer INF = 99999;
     private Integer vertices;
+    private Integer dist[][];
 
     //
     // Constructor
     //
     public FloydWarshall(Integer numeroVertices){
         this.vertices = numeroVertices;
+        this.dist = new Integer[vertices][vertices]; 
     }
     //
     // Metodos
     //
     public void floydWarshall(Integer graph[][]) { 
-        Integer dist[][] = new Integer[vertices][vertices]; 
-        Integer i, j, k; 
-  
+        Integer i, j, k;
         /* 
            Inicialice la matriz de solución igual que
            la matriz del grafo de entrada.
@@ -64,13 +64,13 @@ class FloydWarshall {
                         dist[i][j] = dist[i][k] + dist[k][j]; 
                 } 
             } 
-        } 
-  
-        //Solucion
-        printSolution(dist); 
+        }
     } 
-  
-    public void printSolution(Integer dist[][]) { 
+
+    /*
+     * Función que imprime la solucion
+     */
+    public void printSolution() { 
         System.out.println("La siguiente matriz muestra las distancias "
         + "más cortas entre cada par de vértices. ");
         for (Integer i=0; i<vertices; ++i) { 
@@ -83,7 +83,10 @@ class FloydWarshall {
             System.out.println(); 
         } 
     } 
-  
+
+    public Integer getCaminos(){
+        return this.dist;
+    }
     //
     // Main
     //
