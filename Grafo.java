@@ -143,6 +143,10 @@ public class Grafo {
         return this.numeroNodos;
     }
 
+    public Integer getNodoOrigen(){
+        return this.nodoOrigen;
+    }
+
     public void printMatriz(){
         for (Integer i=0; i<matrizCamino.length; ++i) { 
             for (Integer j=0; j<matrizCamino.length; ++j) { 

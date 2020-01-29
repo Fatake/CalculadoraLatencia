@@ -19,6 +19,7 @@ public class CalculadoraLatencia {
         CalculadoraLatencia aux = new CalculadoraLatencia();
         LectorArchivo leector = new LectorArchivo();
         FloydWarshall buscarCaminos = null;
+        Dijkstra buscarCaminosD = null;
         Grafo grafo = null;
 
         //
@@ -41,12 +42,18 @@ public class CalculadoraLatencia {
         //
         grafo = new Grafo(aux.contenidoArchivo);
         grafo.printInfo();//Imprime la informacion 
-        buscarCaminos = new FloydWarshall(grafo.getNumeroNodos());
-        
+        buscarCaminos  = new FloydWarshall(grafo.getNumeroNodos());
+        buscarCaminosD = new Dijkstra(grafo.getMatriz(), grafo.getNodoOrigen());
+
         buscarCaminos.floydWarshall(grafo.getMatriz()); 
         grafo.printMatriz(); 
         grafo.setMatriz(buscarCaminos.getCaminos());
         buscarCaminos.printSolution();
+
+        Integer mat[] = buscarCaminosD.dijkstra();
+        for (int i = 0; i < mat.length; i++) {
+            System.out.println("N:"+i+" por:"+(mat[i]+1));
+        }
         
     }
 
