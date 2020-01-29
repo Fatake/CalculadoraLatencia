@@ -24,10 +24,18 @@ public class CalculadoraLatencia {
     public static void main(final String[] args) {
         CalculadoraLatencia aux = new CalculadoraLatencia();
         LectorArchivo leector = new LectorArchivo();
-        leector.leerArchivo(args[0]);//Lee el archivo
-        aux.contenidoArchivo = leector.procesaArchivo();//Optiene el contendido sin comas
-        for (Float[] pasos : aux.contenidoArchivo) {
-            System.out.println(""+pasos.toString());
+
+        //Lee el archivo
+        if (!leector.leerArchivo(args[0])) {
+            System.out.println("Error al leer el archivo");
+            System.exit(-1);
         }
+        
+        if ((aux.contenidoArchivo = leector.procesaArchivo()) == null) {
+            System.out.println("Error al tratar el archivo");
+            System.exit(-1);
+        }
+
+        
     }
 }

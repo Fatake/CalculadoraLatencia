@@ -7,7 +7,7 @@ public class Enlace {
 	//
 	// Constantes
 	//
-	static final float velocidadLuz = 3*Math.pow(10, 8);
+	static final Integer velocidadLuz = 300000000;
 	//
 	// Fields
 	//
