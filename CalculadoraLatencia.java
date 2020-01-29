@@ -18,6 +18,7 @@ public class CalculadoraLatencia {
     public static void main(final String[] args) {
         CalculadoraLatencia aux = new CalculadoraLatencia();
         LectorArchivo leector = new LectorArchivo();
+        FloydWarshall buscarCaminos = null;
         Grafo grafo = null;
 
         //
@@ -40,6 +41,13 @@ public class CalculadoraLatencia {
         //
         grafo = new Grafo(aux.contenidoArchivo);
         grafo.printInfo();//Imprime la informacion 
+        buscarCaminos = new FloydWarshall(grafo.getNumeroNodos());
+        
+        buscarCaminos.floydWarshall(grafo.getMatriz()); 
+        grafo.printMatriz(); 
+        grafo.setMatriz(buscarCaminos.getCaminos());
+        buscarCaminos.printSolution();
+        
     }
 
     //

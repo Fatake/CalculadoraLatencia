@@ -15,6 +15,7 @@ public class Grafo {
     private Integer tamArchivo;
     private Integer nodoOrigen;
     private Integer nodoDestino;
+    private Integer matrizCamino[][];
   
 	//
 	// Constructors
@@ -111,17 +112,53 @@ public class Grafo {
     /*
      * Retorna la matriz de caminos
      */
-    public Integer[][] getMatrizCamino(){
-        Integer matriz[][] = {{0, 1, INF, 1}, 
-                         {1, 0, 1, INF}, 
-                         {INF, 1, 0, 1}, 
-                         {1, INF, 1, 0}};
-
-        FloydWarshall a = new FloydWarshall(4); 
-        a.floydWarshall(matriz); 
-        return matriz;
+    public Integer[][] getMatriz(){
+        matrizCamino = new Integer[numeroNodos][numeroNodos];
+        
+        //Poner la matriz en infinito y en 0s la diagonal
+        for (int i = 0; i < matrizCamino.length; i++) {
+            for (int j = i; j < matrizCamino.length; j++) {
+                if (i == j) {
+                    matrizCamino[i][j] = 0;
+                } else {//Si existe relacion o no relacion
+                    for (int k = 0; k < enlaces.size(); k++) { //Para cada enlace
+                        if (enlaces.get(k).getNodoOrigen().getNumeroNodo()-1 == i &&
+                            enlaces.get(k).getNodoDestino().getNumeroNodo()-1 == j) {
+                                //Si existe una relacion
+                                matrizCamino[i][j] = 1;
+                                matrizCamino[j][i] = 1;
+                                break;
+                        }else{
+                            matrizCamino[i][j] = INF;
+                            matrizCamino[j][i] = INF;
+                        }
+                    }
+                }
+            }
+        }
+        return matrizCamino;
+    }
+    
+    public void setMatriz(Integer newMat[][]){
+        this.matrizCamino = newMat;
     }
 
+    public Integer getNumeroNodos(){
+        return this.numeroNodos;
+    }
+
+    public void printMatriz(){
+        for (Integer i=0; i<matrizCamino.length; ++i) { 
+            for (Integer j=0; j<matrizCamino.length; ++j) { 
+                if (matrizCamino[i][j]==INF) 
+                    System.out.print("I "); 
+                else
+                    System.out.print(matrizCamino[i][j]+"   "); 
+            } 
+            System.out.println(); 
+        } 
+    }
+    
     public void printInfo(){
         System.out.println("#Nodos: "+numeroNodos);
         System.out.println("#Enlaces: "+numeroEnlaces);
@@ -141,7 +178,7 @@ public class Grafo {
                               +" Du dest: "+lace.getNodoDestino().tamPaquete.getDatosUsuario()
                                 );
         }
-        
+
         System.out.println("\n<<------------------------------>>");
         Float aux = tamArchivo.floatValue()/(1024*1024);
         System.out.println("Tamañio Archivo: "+aux+"Gb = "+tamArchivo+" Bytes");

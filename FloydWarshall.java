@@ -72,7 +72,7 @@ class FloydWarshall {
      */
     public void printSolution() { 
         System.out.println("La siguiente matriz muestra las distancias "
-        + "más cortas entre cada par de vértices. ");
+        + "más cortas entre cada par de Nodos. ");
         for (Integer i=0; i<vertices; ++i) { 
             for (Integer j=0; j<vertices; ++j) { 
                 if (dist[i][j]==INF) 
