@@ -84,7 +84,7 @@ class FloydWarshall {
         } 
     } 
 
-    public Integer getCaminos(){
+    public Integer[][] getCaminos(){
         return this.dist;
     }
     //
