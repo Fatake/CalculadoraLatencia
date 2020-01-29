@@ -7,7 +7,7 @@ public class Enlace {
 	//
 	// Constantes
 	//
-	static final Integer velocidadLuz = 300000000;
+	private static final Integer velocidadLuz = 300000000;
 	//
 	// Fields
 	//
