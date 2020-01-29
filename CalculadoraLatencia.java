@@ -36,10 +36,10 @@ public class CalculadoraLatencia {
         }
 
         //
-        // Procesamiento de la informacion en grafos
+        // Grafo de la red
         //
         grafo = new Grafo(aux.contenidoArchivo);
-        grafo.printInfo();
+        grafo.printInfo();//Imprime la informacion 
     }
 
     //

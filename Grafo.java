@@ -10,8 +10,8 @@ public class Grafo {
     private final static Integer INF = 99999;
     private Integer numeroNodos;
     private Integer numeroEnlaces;
-    private ArrayList<Nodo> nodos;
-    private ArrayList<Enlace> enlaces;
+    private ArrayList<Nodo> nodos = new ArrayList<Nodo>();
+    private ArrayList<Enlace> enlaces = new ArrayList<Enlace>();
     private Integer tamArchivo;
     private Integer nodoOrigen;
     private Integer nodoDestino;
@@ -26,22 +26,24 @@ public class Grafo {
         contador++;
 
         //Obtiene Paquetes
-        for (int i = contador; i < numeroNodos; i++) {
-            Float aux[] = informacion.get(i);
+        int paro = numeroNodos+contador;
+        for (int i = contador; i < paro; i++) {
+            Float    aux[]  = informacion.get(i);
             Integer numNodo = aux[0].intValue();
             Float  timeCola = aux[1];
+
             this.nodos.add(new Nodo(numNodo, timeCola));
             contador++;
         }
 
         //Obtiene los enlaces
-        int paro = numeroEnlaces+contador; 
+        paro = numeroEnlaces+contador; 
         for (int i = contador ; i < paro; i++) {
             Float   aux[] = informacion.get(i);
             Enlace  auxEn = null;
             Nodo    aux1N = null;
             Nodo    aux2N = null;
-            
+
             //Separar la informacion 
             Integer nodoOrigen  = aux[0].intValue();
             Integer nodoDestino = aux[1].intValue();
@@ -52,7 +54,7 @@ public class Grafo {
 
             // Busca El nodo Origen
             for (int j = 0; j < this.numeroNodos ; j++) {
-                if (j == nodoOrigen) {
+                if ((j+1) == nodoOrigen) {
                     aux1N = this.nodos.get(j);
                     break;
                 }
@@ -60,7 +62,7 @@ public class Grafo {
 
             //Busca el Nodo Destino
             for (int j = 0; j < this.numeroNodos ; j++) {
-                if (j == nodoDestino) {
+                if ((j+1) == nodoDestino) {
                     aux2N = this.nodos.get(j);
                     break;
                 }
@@ -77,7 +79,7 @@ public class Grafo {
 
         //Obtiene El tamaño del arrchivo y lo convierte a Bytes
         Float aux = informacion.get(contador)[0];//Auxiliar que tiene los Gb
-        aux = aux/(1024*1024);//Convierte de Gbytes a Bytes
+        aux = aux*(1024*1024);//Convierte de Gbytes a Bytes
         this.tamArchivo = aux.intValue();
         contador++;
 
@@ -121,23 +123,28 @@ public class Grafo {
     }
 
     public void printInfo(){
-        System.out.print("Numero Nodos: "+numeroNodos);
-        System.out.println(" Numero de Enlaces: "+numeroEnlaces);
+        System.out.println("#Nodos: "+numeroNodos);
+        System.out.println("#Enlaces: "+numeroEnlaces);
 
+        System.out.println("\n<<------------------------------>>");
         for (Nodo node : nodos) {
             System.out.println("#Nodo: "+node.getNumeroNodo()+" TC: "+node.getTiempoCola());
         }
-        System.out.println("");
+
+        System.out.println("\n<<------------------------------>>");
         for (Enlace lace : enlaces) {
-            System.out.println("NOrigen: "+lace.getNodoOrigen().getNumeroNodo()
-                              +" NDesdino: "+lace.getNodoDestino().getNumeroNodo()
-                              +" Velocidad: "+lace.getVelocidadEnlace()
-                              +" Distancia: "+lace.getDistancia()
+            System.out.println("NO: "+lace.getNodoOrigen().getNumeroNodo()
+                              +" ND: "+lace.getNodoDestino().getNumeroNodo()
+                              +" Vel: "+lace.getVelocidadEnlace()
+                              +" Dis: "+lace.getDistancia()
                               +" DC dest: "+lace.getNodoDestino().tamPaquete.getDatosControl()
                               +" Du dest: "+lace.getNodoDestino().tamPaquete.getDatosUsuario()
                                 );
         }
-        System.out.println("\nTamaño De Archivo: "+tamArchivo);
-        System.out.println("Nodo Origen: "+nodoOrigen+" Nodo destino: "+nodoDestino);
+        
+        System.out.println("\n<<------------------------------>>");
+        Float aux = tamArchivo.floatValue()/(1024*1024);
+        System.out.println("Tamañio Archivo: "+aux+"Gb = "+tamArchivo+" Bytes");
+        System.out.println("Nodo Inico: "+nodoOrigen+" Nodo Fin: "+nodoDestino);
     }
 }
