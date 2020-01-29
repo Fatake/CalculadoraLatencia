@@ -36,7 +36,6 @@ public class LectorArchivo {
             // hacer una lectura comoda (disponer del metodo readLine()).
             while ((linea = br.readLine()) != null){
                 this.contenidoArchivo.add(linea);
-                //System.out.println(linea);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,7 +71,7 @@ public class LectorArchivo {
         Float numNodos   = Float.parseFloat(aux2[0]);
         Float numEnlaces = Float.parseFloat(aux2[1]);
         Float auxFloat[] = {numNodos,numEnlaces};
-        System.out.println("Nodos:"+auxFloat[0]+" Enlaces:"+auxFloat[1]);
+        //System.out.println("Nodos:"+auxFloat[0]+" Enlaces:"+auxFloat[1]);
         contenidoArchivoInt.add(auxFloat);
 
         contador++;
@@ -87,12 +86,11 @@ public class LectorArchivo {
             Float tiem = Float.parseFloat(aux2[1]);
 
             Float auxFloat1[] = {nodo,tiem};
-            System.out.println("Nodo: "+auxFloat1[0]+" TC: "+auxFloat1[1]);
+            //System.out.println("Nodo: "+auxFloat1[0]+" TC: "+auxFloat1[1]);
             contenidoArchivoInt.add(auxFloat1);//Agrega a la lista ligada
             contador++;
             
         }
-        System.out.println("");
          
         //
         //Enlaces nOrigen, nDestino, VelocidadEnlace, Distancia, DC, DU
@@ -109,25 +107,26 @@ public class LectorArchivo {
             Float DU              = Float.parseFloat(aux2[5]);
 
             Float auxFloat1[] = {nOrigen,nDestino,velocidadEnlace,distancia,DC,DU};
+            /*
             System.out.println("NO: "+auxFloat1[0]+
                                " ND: "+auxFloat1[1]+
                                " VE: "+auxFloat1[2]+
                                " Di: "+auxFloat1[3]+
                                " DC: "+auxFloat1[4]+
                                " DU: "+auxFloat1[5]);
+                               */
             
             //Agrega al arreglo de float
             contenidoArchivoInt.add(auxFloat1);
             contador++;
         }
-        System.out.println("");
 
         //
         // Tamanio de Paquetes
         //
         aux = contenidoArchivo.get(contador);
         Float auxInt1[] = {Float.parseFloat(aux)};
-        System.out.println("TP: "+auxInt1[0]);
+        //System.out.println("TP: "+auxInt1[0]);
 
         contenidoArchivoInt.add(auxInt1);
         contador++;
@@ -141,7 +140,7 @@ public class LectorArchivo {
         Float nodoDestino= Float.parseFloat(aux2[1]);
         Float auxInt2[] = {nodoOrigen,nodoDestino};
 
-        System.out.println("NOrigen: "+auxInt2[0]+" NDestino: "+auxInt2[1]);
+        //System.out.println("NOrigen: "+auxInt2[0]+" NDestino: "+auxInt2[1]);
         contenidoArchivoInt.add(auxInt2);
 
         
