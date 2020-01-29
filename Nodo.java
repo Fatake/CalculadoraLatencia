@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * Class Nodo
  */
@@ -8,20 +6,30 @@ public class Nodo {
 	//
 	// Fields
 	//
-
-	/**
-	 * Numero del Nodo
-	 */
   	private Integer numeroNodo;
-	/**
-	 * Tiempo de cola de los paquetes
-	 */
-  	private Float tiempoCola;
+	private Float tiempoCola;
+	public Paquete tamPaquete;
   
 	//
 	// Constructors
 	//
-	public Nodo () { };
+	public Nodo (Integer numeroNodo, Float tiempoCola) {
+		this.numeroNodo = numeroNodo;
+		this.tiempoCola = tiempoCola;
+		this.tamPaquete = new Paquete();
+	}
+
+	public Nodo (Integer numeroNodo, Float tiempoCola, Paquete tamPaquete) {
+		this.numeroNodo = numeroNodo;
+		this.tiempoCola = tiempoCola;
+		this.tamPaquete = tamPaquete;
+	}
+
+	public Nodo (Integer numeroNodo, Float tiempoCola, Integer datControl, Integer datUser){
+		this.numeroNodo = numeroNodo;
+		this.tiempoCola = tiempoCola;
+		this.tamPaquete = new Paquete(datControl,datUser);
+	}
   
 	//
 	// Methods

@@ -12,22 +12,20 @@ public class Enlace {
 	// Fields
 	//
 	private Nodo nodoOrigen;
-	private Nodo NodoDestino;
+	private Nodo nodoDestino;
 
 	private Float velocidadEnlace;
 	private Float distancia;
-	public Paquete tamPaquete;
   
 	//
 	// Constructors
 	//
-	public Enlace (Nodo nodoOrigen, Nodo nodoDestino,Float velocidadEnlace,Float distancia,Integer datosControl,Integer datosUsuario) {
+	public Enlace (Nodo nodoOrigen, Nodo nodoDestino,Float velocidadEnlace,Float distancia) {
 		this.nodoOrigen = nodoOrigen;
-		this.NodoDestino = nodoDestino;
+		this.nodoDestino = nodoDestino;
 
 		this.velocidadEnlace = velocidadEnlace;
 		this.distancia = distancia;
-		this.tamPaquete = new Paquete(datosControl, datosUsuario);
 	}
   
 	//
@@ -40,8 +38,8 @@ public class Enlace {
 	 */
 	public Float latencia(){
 		Float timePropagacion = this.distancia/velocidadLuz;
-		Float timeTransmicion = tamPaquete.getTamPaquete() / this.velocidadEnlace;
-		Float latencia = timePropagacion + timeTransmicion + this.NodoDestino.getTiempoCola();
+		Float timeTransmicion = nodoDestino.tamPaquete.getSizePaquete() / this.velocidadEnlace;
+		Float latencia = timePropagacion + timeTransmicion + this.nodoDestino.getTiempoCola();
 		return latencia;
 	}
 
@@ -54,8 +52,8 @@ public class Enlace {
 	 */
 	public Float latencia(int numPaquetes){
 		Float timePropagacion = this.distancia/velocidadLuz;
-		Float timeTransmicion = tamPaquete.getTamPaquete() / this.velocidadEnlace;
-		Float latencia = timePropagacion + timeTransmicion + this.NodoDestino.getTiempoCola();
+		Float timeTransmicion = nodoDestino.tamPaquete.getSizePaquete() / this.velocidadEnlace;
+		Float latencia = timePropagacion + timeTransmicion + this.nodoDestino.getTiempoCola();
 		return numPaquetes*latencia;
 	}
 
@@ -69,8 +67,8 @@ public class Enlace {
 	 */
 	public Float latencia(int numPaquetes,Paquete pack){
 		Float timePropagacion = this.distancia/velocidadLuz;
-		Float timeTransmicion = pack.getTamPaquete() / this.velocidadEnlace;
-		Float latencia = timePropagacion + timeTransmicion + this.NodoDestino.getTiempoCola();
+		Float timeTransmicion = pack.getSizePaquete() / this.velocidadEnlace;
+		Float latencia = timePropagacion + timeTransmicion + this.nodoDestino.getTiempoCola();
 		return numPaquetes*latencia;
 	}
 
@@ -94,7 +92,7 @@ public class Enlace {
 	 * @return the value of NodoDestino
 	 */
   	public Nodo getNodoDestino () {
-  		return NodoDestino;
+  		return nodoDestino;
   	}
 
 	/**

@@ -1,5 +1,3 @@
-
-import java.io.IOException;
 import java.util.ArrayList;
 /*
  * Clase Main
@@ -20,6 +18,7 @@ public class CalculadoraLatencia {
     public static void main(final String[] args) {
         CalculadoraLatencia aux = new CalculadoraLatencia();
         LectorArchivo leector = new LectorArchivo();
+        Grafo grafo = null;
 
         //
         // Lectura del Archivo
@@ -37,8 +36,10 @@ public class CalculadoraLatencia {
         }
 
         //
+        // Procesamiento de la informacion en grafos
         //
-        //
+        grafo = new Grafo(aux.contenidoArchivo);
+        grafo.printInfo();
     }
 
     //

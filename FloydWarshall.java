@@ -87,17 +87,4 @@ class FloydWarshall {
     public Integer[][] getCaminos(){
         return this.dist;
     }
-    //
-    // Main
-    //
-    public static void main (String[] args) { 
-        Integer graph[][] = { {0, 1, INF, 1}, 
-                            {1, 0, 1, INF}, 
-                            {INF, 1, 0, 1}, 
-                            {1, INF, 1, 0} 
-                        }; 
-        
-        FloydWarshall a = new FloydWarshall(4); 
-        a.floydWarshall(graph); 
-    } 
 } 
