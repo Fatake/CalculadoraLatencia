@@ -118,20 +118,16 @@ public class Grafo {
         //Poner la matriz en infinito y en 0s la diagonal
         for (int i = 0; i < matrizCamino.length; i++) {
             for (int j = i; j < matrizCamino.length; j++) {
-                if (i == j) {
-                    matrizCamino[i][j] = 0;
-                } else {//Si existe relacion o no relacion
-                    for (int k = 0; k < enlaces.size(); k++) { //Para cada enlace
-                        if (enlaces.get(k).getNodoOrigen().getNumeroNodo()-1 == i &&
-                            enlaces.get(k).getNodoDestino().getNumeroNodo()-1 == j) {
-                                //Si existe una relacion
-                                matrizCamino[i][j] = 1;
-                                matrizCamino[j][i] = 1;
-                                break;
-                        }else{
-                            matrizCamino[i][j] = INF;
-                            matrizCamino[j][i] = INF;
-                        }
+                for (int k = 0; k < enlaces.size(); k++) { //Para cada enlace
+                    if (enlaces.get(k).getNodoOrigen().getNumeroNodo()-1 == i &&
+                        enlaces.get(k).getNodoDestino().getNumeroNodo()-1 == j) {
+                            //Si existe una relacion
+                            matrizCamino[i][j] = 1;
+                            matrizCamino[j][i] = 1;
+                            break;
+                    }else{//si no hay relacion se deja en infinito
+                        matrizCamino[i][j] = INF;
+                        matrizCamino[j][i] = INF;
                     }
                 }
             }
@@ -151,9 +147,9 @@ public class Grafo {
         for (Integer i=0; i<matrizCamino.length; ++i) { 
             for (Integer j=0; j<matrizCamino.length; ++j) { 
                 if (matrizCamino[i][j]==INF) 
-                    System.out.print("I "); 
+                    System.out.print("F "); 
                 else
-                    System.out.print(matrizCamino[i][j]+"   "); 
+                    System.out.print(matrizCamino[i][j]+" "); 
             } 
             System.out.println(); 
         } 
