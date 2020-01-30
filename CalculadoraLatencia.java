@@ -18,8 +18,7 @@ public class CalculadoraLatencia {
     public static void main(final String[] args) {
         CalculadoraLatencia aux = new CalculadoraLatencia();
         LectorArchivo leector = new LectorArchivo();
-        FloydWarshall buscarCaminos = null;
-        Dijkstra buscarCaminosD = null;
+        AllPaths caminos = new AllPaths();
         Grafo grafo = null;
 
         //
@@ -41,19 +40,29 @@ public class CalculadoraLatencia {
         // Grafo de la red
         //
         grafo = new Grafo(aux.contenidoArchivo);
-        grafo.printInfo();//Imprime la informacion 
-        buscarCaminos  = new FloydWarshall(grafo.getNumeroNodos());
-        buscarCaminosD = new Dijkstra(grafo.getMatriz(), grafo.getNodoOrigen());
+        grafo.printInfo();//Imprime la informacion
+        int matrizAdyacencia[][] = grafo.getMatriz();
+        int nodoInisi = grafo.getNodoOrigen()-1;
+        int nodoDesti = grafo.getNodoDestino()-1;
+        //Busca los caminos
+        //Lista de lista una lista que tiene la listas que contienen los caminos
+        ArrayList<ArrayList<Integer>> allPaths = caminos.pathsBetween(nodoInisi, nodoDesti, matrizAdyacencia);
 
-        buscarCaminos.floydWarshall(grafo.getMatriz()); 
-        grafo.printMatriz(); 
-        grafo.setMatriz(buscarCaminos.getCaminos());
-        buscarCaminos.printSolution();
-
-        Integer mat[] = buscarCaminosD.dijkstra();
-        for (int i = 0; i < mat.length; i++) {
-            System.out.println("N:"+i+" por:"+(mat[i]+1));
-        }
+        System.out.println("\nCaminos disónibles:");
+        //Imprime todos los caminos
+        for (ArrayList<Integer> path : allPaths) {
+            boolean primero = true;
+      
+            for (int i : path) {
+                if (primero)
+                    primero = false;
+                else
+                    System.out.print(" -> ");
+                
+                System.out.print(i+1);
+            }
+            System.out.println();
+          }
         
     }
 
