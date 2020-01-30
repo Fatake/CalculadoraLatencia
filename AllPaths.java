@@ -57,4 +57,22 @@ public class AllPaths {
     return results;
   }
 
+  public void printPaths(ArrayList<ArrayList<Integer>> allPaths){
+    System.out.println("\nCaminos disónibles:");
+        
+    for (ArrayList<Integer> path : allPaths) {
+      boolean primero = true;
+
+      for (int i : path) {
+          if (primero)
+              primero = false;
+          else
+              System.out.print(" -> ");
+          
+          System.out.print(i+1);
+      }
+      System.out.println();
+    }
+  }
+
 }

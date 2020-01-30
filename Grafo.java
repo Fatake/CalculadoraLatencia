@@ -7,7 +7,6 @@ public class Grafo {
 	//
 	// Fields
     //
-    private final static Integer INF = 99999;
     private Integer numeroNodos;
     private Integer numeroEnlaces;
     private ArrayList<Nodo> nodos = new ArrayList<Nodo>();
@@ -110,7 +109,7 @@ public class Grafo {
     //
     
     /*
-     * Retorna la matriz de caminos
+     * Retorna la matriz de adyacencia 
      */
     public int[][] getMatriz(){
         matrizCamino = new int[numeroNodos][numeroNodos];
@@ -147,6 +146,14 @@ public class Grafo {
         return this.nodoDestino.intValue();
     }
 
+    public ArrayList<Enlace> getEnlaces(){
+        return this.enlaces;
+    }
+
+    public int getSizeArchivo(){
+        return this.tamArchivo.intValue();
+    }
+
     public void printMatriz(){
         for (Integer i=0; i<matrizCamino.length; ++i) { 
             for (Integer j=0; j<matrizCamino.length; ++j) { 
@@ -155,7 +162,7 @@ public class Grafo {
             System.out.println(); 
         } 
     }
-    
+
     public void printInfo(){
         System.out.println("#Nodos: "+numeroNodos);
         System.out.println("#Enlaces: "+numeroEnlaces);
