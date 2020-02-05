@@ -25,16 +25,16 @@ public class Paquete {
 	//
 	// Methods
 	//
-	public Integer getSizePaquete(){
+	public Integer getSizePaquete() {
 		return datosControl + datosUsuario;
 	}
 
-	public void setSizeZero(){
+	public void setSizeZero() {
 		this.datosControl = 0;
 		this.datosUsuario = 0;
 	}
 
-	public void reSize(Integer dc, Integer du){
+	public void reSize(Integer dc, Integer du) {
 		this.datosControl = dc;
 		this.datosUsuario = du;
 	}

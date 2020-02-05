@@ -41,18 +41,18 @@ public class AllPaths {
     }
   }
 
-  public ArrayList<ArrayList<Integer>> pathsBetween(int src, int dest, int[][] m) {
+  public ArrayList<ArrayList<Integer>> pathsBetween(int ini, int dest, int[][] m) {
     ArrayList<ArrayList<Integer>> results = new ArrayList<>();
 
     //si el nodo es el mismo entonces no hay camino
-    if (src == dest)
+    if (ini == dest)
       return results;
 
     //Crea arreglo de visitados del tamaño de la matriz e inicia proceso de recurrencia
     ArrayList<Integer> currentPath = new ArrayList<>();
     boolean[] visited = new boolean[m.length];
 
-    pathsBetweenRec(src, dest, m, currentPath, visited, results);
+    pathsBetweenRec(ini, dest, m, currentPath, visited, results);
 
     return results;
   }

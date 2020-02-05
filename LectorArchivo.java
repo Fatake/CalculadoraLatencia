@@ -7,8 +7,8 @@ import java.io.FileReader;
  * Clase Lector Archivo
  */
 public class LectorArchivo {
-    public ArrayList<String> contenidoArchivo = new ArrayList<String>();
-    public ArrayList<Float []> contenidoArchivoInt = new ArrayList<Float[]>();
+    private rayList<String> contenidoArchivo = new ArrayList<String>();
+    private ArrayList<Float []> contenidoArchivoInt = new ArrayList<Float[]>();
     //
     // Metodos
     //
